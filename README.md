@@ -1,0 +1,3 @@
+# ShoppingApp
+
+uygulama prototip
