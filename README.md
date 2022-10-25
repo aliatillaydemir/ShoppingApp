@@ -25,7 +25,7 @@ width=30% height=70%>&ensp;&ensp;&ensp;
 
 ### 🏡 Main Page -> Products + Search + Profile Page
 
-### 📦 Products&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;🔎 Search&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;👤 Profile
+### 📦 Products&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;🔎 Search&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;👤 Profile
 <img src="https://github.com/aliatillaydemir/ShoppingApp/blob/master/prototype/Product%20Screen.png" 
 width=30% height=70%> 
 <img src="https://github.com/aliatillaydemir/ShoppingApp/blob/master/prototype/Search%20Screen.png" 
@@ -33,7 +33,7 @@ width=30% height=70%>
 <img src="https://github.com/aliatillaydemir/ShoppingApp/blob/master/prototype/Profile%20Screen.png" 
 width=30% height=70%>
 
-### 🧺 Basket &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp; :page_with_curl: Details
+### 🧺 Basket &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp; :page_with_curl: Details
 <img src="https://github.com/aliatillaydemir/ShoppingApp/blob/master/prototype/Basket%20Screen.png" 
 width=30% height=70%>
 <img src="https://github.com/aliatillaydemir/ShoppingApp/blob/master/prototype/Detail%20Screen.png" 
