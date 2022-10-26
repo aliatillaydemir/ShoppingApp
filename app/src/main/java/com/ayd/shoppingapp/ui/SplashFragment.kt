@@ -30,10 +30,11 @@ class SplashFragment : Fragment(), CoroutineScope {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
         launch {
-            delay(2000)                      //2 saniye splash screen ekranda duracak.
+            delay(100)                      //2 saniye splash screen ekranda duracak.
             withContext(Dispatchers.Main){
                 if(onBoardingFinished()){             //eğer onbard ekranlarını bitirdiysek burası çalışır ve bir daha gözükmezler.
-                    findNavController().navigate(R.id.action_splashFragment_to_productsFragment)
+                    //findNavController().navigate(R.id.action_splashFragment_to_productsFragment)
+                    findNavController().navigate(R.id.action_splashFragment_to_authPagerFragment)
                 }else{                                // uygulama ilk kez yüklendiyse ya da onbard ekranlar tamamlanmadıysa her açılışta viewpager açılır.
                     findNavController().navigate(R.id.action_splashFragment_to_viewPagerFragment)
                 }

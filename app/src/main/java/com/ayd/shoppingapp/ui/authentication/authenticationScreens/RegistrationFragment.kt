@@ -1,4 +1,4 @@
-package com.ayd.shoppingapp.ui.mainScreens
+package com.ayd.shoppingapp.ui.authentication.authenticationScreens
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
