@@ -2,13 +2,15 @@ package com.ayd.shoppingapp
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.navigation.fragment.NavHostFragment
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        println("main page")
+        supportActionBar?.hide()  //ekran kaplansın, action bar kalksın.
 
+        supportFragmentManager.findFragmentById(R.id.fragmentContainerView) as NavHostFragment //navigation bağlantısı için.
     }
 }
