@@ -30,7 +30,9 @@ class ThirdOnBoarding : Fragment() {
             viewPager?.currentItem = 1
         }
         binding.finishButton.setOnClickListener{
-            findNavController().navigate(R.id.action_viewPagerFragment_to_productsFragment)  //finish'e tıklanırsa first fragment'a gidilir.
+            //findNavController().navigate(R.id.action_viewPagerFragment_to_productsFragment)  //finish'e tıklanırsa first fragment'a gidilir.
+            //login register oldu mu kontrolü. kayıtlıysa direkt production ekranına git.
+            findNavController().navigate(R.id.action_viewPagerFragment_to_authPagerFragment)
             onBoardFinish()
         }
 

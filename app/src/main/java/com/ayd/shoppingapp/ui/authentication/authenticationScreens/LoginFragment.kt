@@ -1,5 +1,6 @@
 package com.ayd.shoppingapp.ui.authentication.authenticationScreens
 
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -7,8 +8,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
+import com.ayd.shoppingapp.MainActivity
 import com.ayd.shoppingapp.R
 import com.ayd.shoppingapp.databinding.FragmentLoginBinding
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 
 class LoginFragment : Fragment() {
@@ -29,6 +32,12 @@ class LoginFragment : Fragment() {
 
 
         return binding.root
+    }
+
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        (activity as MainActivity).hideBottomNavigation()
     }
 
 

@@ -7,11 +7,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
+import com.ayd.shoppingapp.MainActivity
 import com.ayd.shoppingapp.R
 import kotlinx.coroutines.*
 import kotlin.coroutines.CoroutineContext
 
 class SplashFragment : Fragment(), CoroutineScope {
+
 
     override val coroutineContext: CoroutineContext
         get() = Dispatchers.Main + Job()               //job açıyorum main'in üzerinde. splash screenim için.
@@ -27,10 +29,15 @@ class SplashFragment : Fragment(), CoroutineScope {
     }
 
 
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
         launch {
-            delay(100)                      //2 saniye splash screen ekranda duracak.
+
+            (activity as MainActivity).hideBottomNavigation()
+            super.onDetach()
+
+            delay(2000)                      //2 saniye splash screen ekranda duracak.
             withContext(Dispatchers.Main){
                 if(onBoardingFinished()){             //eğer onbard ekranlarını bitirdiysek burası çalışır ve bir daha gözükmezler.
                     //findNavController().navigate(R.id.action_splashFragment_to_productsFragment)
@@ -47,7 +54,6 @@ class SplashFragment : Fragment(), CoroutineScope {
         val sharedPref = requireActivity().getSharedPreferences("ONBOARD", Context.MODE_PRIVATE)
         return sharedPref.getBoolean("FINISHED", false)
     }
-
 
 
 
