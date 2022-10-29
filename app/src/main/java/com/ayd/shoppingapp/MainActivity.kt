@@ -29,7 +29,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        supportActionBar?.hide()  //ekran kaplansın, action bar kalksın.
+        //supportActionBar?.hide()  //ekran kaplansın, action bar kalksın.
 
         supportFragmentManager.findFragmentById(R.id.fragmentContainerView) as NavHostFragment //navigation bağlantısı için.
 
