@@ -37,6 +37,7 @@
                     android:id="@+id/products_imageView"
                     android:layout_width="200dp"
                     android:layout_height="150dp"
+                    loadImageUrl="@{result.image}"
                     android:scaleType="centerCrop"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
