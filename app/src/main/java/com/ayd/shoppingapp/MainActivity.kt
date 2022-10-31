@@ -17,7 +17,9 @@ import com.ayd.shoppingapp.ui.mainScreens.ProductsFragment
 import com.ayd.shoppingapp.ui.mainScreens.ProfileFragment
 import com.ayd.shoppingapp.ui.mainScreens.SearchFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding

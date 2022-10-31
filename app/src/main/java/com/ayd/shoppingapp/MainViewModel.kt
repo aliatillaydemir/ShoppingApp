@@ -4,6 +4,7 @@ import android.app.Application
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
+import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
@@ -47,7 +48,7 @@ class MainViewModel @Inject constructor(private val repository: ProductRepositor
             response.code() == 402 -> {
                 return NetworkResults.Error("Key fail!")
             }
-            response.body()!!.results.isNullOrEmpty() -> {
+                response.body()!!.isNullOrEmpty() -> {
                 return NetworkResults.Error("product not found")
             }
             response.isSuccessful -> {
