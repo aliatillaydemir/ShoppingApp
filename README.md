@@ -43,6 +43,7 @@ width=30% height=70%>
 * [Click for figma source file](https://github.com/aliatillaydemir/ShoppingApp/blob/master/prototype/Shopping%20App.fig..fig)
 
 
-- data
+	~~data~~
 - parcelable - detail
 - firebase
+-local/cache (roomdb)
