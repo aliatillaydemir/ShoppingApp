@@ -10,14 +10,14 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ayd.shoppingapp.MainActivity
-import com.ayd.shoppingapp.MainViewModel
+import com.ayd.shoppingapp.viewmodel.MainViewModel
 import com.ayd.shoppingapp.R
 import com.ayd.shoppingapp.adapters.ProductAdapter
 import com.ayd.shoppingapp.databinding.FragmentProductsBinding
 import com.ayd.shoppingapp.utils.NetworkResults
+import com.ayd.shoppingapp.viewmodel.ProductViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -27,8 +27,18 @@ class ProductsFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val mAdapter by lazy { ProductAdapter() }
-    private lateinit var mainViewModel: MainViewModel
 
+    private lateinit var mainViewModel: MainViewModel
+    private lateinit var productViewModel: ProductViewModel
+
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        mainViewModel = ViewModelProvider(requireActivity())[MainViewModel::class.java]
+        productViewModel = ViewModelProvider(requireActivity())[ProductViewModel::class.java]
+
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,7 +47,6 @@ class ProductsFragment : Fragment() {
         // Inflate the layout for this fragment
         _binding = FragmentProductsBinding.inflate(inflater, container, false)
 
-        mainViewModel = ViewModelProvider(requireActivity())[MainViewModel::class.java]
         setupRecyclerView()
         requestApiData()
 
@@ -46,7 +55,7 @@ class ProductsFragment : Fragment() {
 
 
     private fun requestApiData(){
-        mainViewModel.getProducts(applyQueries())
+        mainViewModel.getProducts(productViewModel.applyQueries())
         mainViewModel.productResponse.observe(viewLifecycleOwner){response ->
             when (response) {
                 is NetworkResults.Success -> {
@@ -66,13 +75,7 @@ class ProductsFragment : Fragment() {
         }
     }
 
-    private fun applyQueries(): HashMap<String, String> {
-        val queries: HashMap<String,String> = HashMap()
 
-        //queries["limit"] = "10"
-        //queries[""]
-        return queries
-    }
 
 
     private fun setupRecyclerView(){
