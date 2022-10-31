@@ -17,7 +17,9 @@ import com.ayd.shoppingapp.ui.mainScreens.ProductsFragment
 import com.ayd.shoppingapp.ui.mainScreens.ProfileFragment
 import com.ayd.shoppingapp.ui.mainScreens.SearchFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
@@ -29,7 +31,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        supportActionBar?.hide()  //ekran kaplansın, action bar kalksın.
+        //supportActionBar?.hide()  //ekran kaplansın, action bar kalksın.
 
         supportFragmentManager.findFragmentById(R.id.fragmentContainerView) as NavHostFragment //navigation bağlantısı için.
 

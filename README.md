@@ -41,8 +41,3 @@ width=30% height=70%>
 
 ### The Figma Design File:
 * [Click for figma source file](https://github.com/aliatillaydemir/ShoppingApp/blob/master/prototype/Shopping%20App.fig..fig)
-
-
-- data
-- parcelable - detail
-- firebase
