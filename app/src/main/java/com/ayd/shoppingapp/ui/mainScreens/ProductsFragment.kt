@@ -2,6 +2,7 @@ package com.ayd.shoppingapp.ui.mainScreens
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import android.widget.Toast
 import androidx.core.view.MenuHost
@@ -9,6 +10,7 @@ import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ayd.shoppingapp.MainActivity
@@ -17,8 +19,10 @@ import com.ayd.shoppingapp.R
 import com.ayd.shoppingapp.adapters.ProductAdapter
 import com.ayd.shoppingapp.databinding.FragmentProductsBinding
 import com.ayd.shoppingapp.utils.NetworkResults
+import com.ayd.shoppingapp.utils.observeOnce
 import com.ayd.shoppingapp.viewmodel.ProductViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class ProductsFragment : Fragment() {
@@ -48,13 +52,35 @@ class ProductsFragment : Fragment() {
         _binding = FragmentProductsBinding.inflate(inflater, container, false)
 
         setupRecyclerView()
-        requestApiData()
+        readDb()
 
         return binding.root
     }
 
 
+    private fun setupRecyclerView(){
+        binding.recyclerview.adapter = mAdapter
+        binding.recyclerview.layoutManager = LinearLayoutManager(requireContext())
+        //binding.recyclerview.layoutManager = GridLayoutManager(requireContext(),2)
+    }
+
+
+    private fun readDb() {
+        lifecycleScope.launch{
+            mainViewModel.readProduct.observeOnce(viewLifecycleOwner){ db ->
+                if(db.isNotEmpty()){
+                    Log.d("ProductDb","read db")
+                    mAdapter.setData(db[0].product)
+                }else{
+                    requestApiData()
+                }
+            }
+        }
+    }
+
+
     private fun requestApiData(){
+        Log.d("ProductDb","read api")
         mainViewModel.getProducts(productViewModel.applyQueries())
         mainViewModel.productResponse.observe(viewLifecycleOwner){response ->
             when (response) {
@@ -62,6 +88,7 @@ class ProductsFragment : Fragment() {
                     response.data?.let { mAdapter.setData(it) }
                 }
                 is NetworkResults.Error -> {
+                    loadDataCache()              //if error
                     Toast.makeText(
                         requireContext(),
                         response.message.toString(),
@@ -75,13 +102,16 @@ class ProductsFragment : Fragment() {
         }
     }
 
+    //if error!
+    private fun loadDataCache(){
+        lifecycleScope.launch{
+            mainViewModel.readProduct.observe(viewLifecycleOwner){ db ->
+                if(db.isNotEmpty()){
+                    mAdapter.setData(db[0].product)
+                }
+            }
+        }
 
-
-
-    private fun setupRecyclerView(){
-        binding.recyclerview.adapter = mAdapter
-        binding.recyclerview.layoutManager = LinearLayoutManager(requireContext())
-        //binding.recyclerview.layoutManager = GridLayoutManager(requireContext(),2)
     }
 
 

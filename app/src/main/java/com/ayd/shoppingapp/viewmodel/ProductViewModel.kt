@@ -11,7 +11,7 @@ class ProductViewModel(application: Application): AndroidViewModel(application) 
         fun applyQueries(): HashMap<String, String> {
         val queries: HashMap<String,String> = HashMap()
 
-        queries[Constants.QUERY_LIMIT] = "10"
+        queries[Constants.QUERY_LIMIT] = "30"
         //queries[""] ...
         return queries
     }

@@ -4,6 +4,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import coil.load
+import com.ayd.shoppingapp.R
 
 class ProductRowBinding {
 
@@ -14,6 +15,7 @@ class ProductRowBinding {
         fun loadImageUrl(imageView: ImageView, imageUrl: String){
             imageView.load(imageUrl){
                 crossfade(500)
+                error(R.drawable.ic_baseline_image_24)
             }
         }
 

@@ -4,13 +4,13 @@ import android.app.Application
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
+import com.ayd.shoppingapp.data.database.ProductEntity
 import com.ayd.shoppingapp.data.model.Products
 import com.ayd.shoppingapp.domain.repository.ProductRepository
 import com.ayd.shoppingapp.utils.NetworkResults
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import retrofit2.Response
 import javax.inject.Inject
@@ -19,6 +19,15 @@ import javax.inject.Inject
 class MainViewModel @Inject constructor(private val repository: ProductRepository, application: Application
 ): AndroidViewModel(application) {
 
+    //database
+    val readProduct: LiveData<List<ProductEntity>> = repository.local.readDatabase().asLiveData()
+
+    private fun insertProduct(productEntity: ProductEntity) =
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.local.insertProduct(productEntity)
+        }
+
+    //retrofit
     var productResponse: MutableLiveData<NetworkResults<Products>> = MutableLiveData()
 
     fun getProducts(queries: Map<String,String>) = viewModelScope.launch {
@@ -31,6 +40,12 @@ class MainViewModel @Inject constructor(private val repository: ProductRepositor
             try {
                 val response = repository.remote.getProducts(queries)
                 productResponse.value = handleProductResponse(response)
+
+                val product = productResponse.value!!.data
+                if(product != null){
+                    offlineCacheProducts(product)
+                }
+
             }catch (e: Exception){
                 productResponse.value = NetworkResults.Error("Products not found :(")
             }
@@ -38,6 +53,13 @@ class MainViewModel @Inject constructor(private val repository: ProductRepositor
             productResponse.value = NetworkResults.Error("No internet Connection")
         }
     }
+
+
+    private fun offlineCacheProducts(product: Products) {
+        val productEntity = ProductEntity(product)
+        insertProduct(productEntity)
+    }
+
 
     private fun handleProductResponse(response: Response<Products>): NetworkResults<Products>? {
         when{
@@ -47,7 +69,7 @@ class MainViewModel @Inject constructor(private val repository: ProductRepositor
             response.code() == 402 -> {
                 return NetworkResults.Error("Key fail!")
             }
-                response.body()!!.isNullOrEmpty() -> {
+            response.body()!!.isNullOrEmpty() -> {
                 return NetworkResults.Error("product not found")
             }
             response.isSuccessful -> {
