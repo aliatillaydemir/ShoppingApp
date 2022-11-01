@@ -18,6 +18,7 @@ import com.ayd.shoppingapp.viewmodel.MainViewModel
 import com.ayd.shoppingapp.R
 import com.ayd.shoppingapp.adapters.ProductAdapter
 import com.ayd.shoppingapp.databinding.FragmentProductsBinding
+import com.ayd.shoppingapp.utils.NetworkListener
 import com.ayd.shoppingapp.utils.NetworkResults
 import com.ayd.shoppingapp.utils.observeOnce
 import com.ayd.shoppingapp.viewmodel.ProductViewModel
@@ -35,6 +36,8 @@ class ProductsFragment : Fragment() {
     private lateinit var mainViewModel: MainViewModel
     private lateinit var productViewModel: ProductViewModel
 
+    private lateinit var networkListener : NetworkListener
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,9 +53,32 @@ class ProductsFragment : Fragment() {
     ): View {
         // Inflate the layout for this fragment
         _binding = FragmentProductsBinding.inflate(inflater, container, false)
+        binding.lifecycleOwner = this
+        binding.mainViewModel = mainViewModel
 
         setupRecyclerView()
         readDb()
+
+
+        lifecycleScope.launch {
+            networkListener = NetworkListener()
+            networkListener.checkNetworkAvailability(requireContext())
+                .collect{ status ->
+                    Log.d("NetworkListener", status.toString())
+
+                    productViewModel.networkState = status
+                    productViewModel.networkStatus()
+                }
+        }
+
+/*        binding.errorImageView.setOnClickListener {
+            if(productViewModel.networkState){
+                findNavController().navigate(R.id.action_productsFragment_to_detailsFragment)
+            }else{
+                productViewModel.networkStatus()
+            }
+        }*/
+
 
         return binding.root
     }
@@ -141,7 +167,10 @@ class ProductsFragment : Fragment() {
     }
 
 
-
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
+    }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
