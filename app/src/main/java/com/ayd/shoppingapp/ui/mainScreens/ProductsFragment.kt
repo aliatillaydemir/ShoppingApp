@@ -12,11 +12,15 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ayd.shoppingapp.MainActivity
 import com.ayd.shoppingapp.viewmodel.MainViewModel
 import com.ayd.shoppingapp.R
 import com.ayd.shoppingapp.adapters.ProductAdapter
+import com.ayd.shoppingapp.data.model.Products
+import com.ayd.shoppingapp.data.model.ProductsItem
+import com.ayd.shoppingapp.data.model.Rating
 import com.ayd.shoppingapp.databinding.FragmentProductsBinding
 import com.ayd.shoppingapp.utils.NetworkListener
 import com.ayd.shoppingapp.utils.NetworkResults
@@ -38,6 +42,7 @@ class ProductsFragment : Fragment() {
 
     private lateinit var networkListener : NetworkListener
 
+    private val args by navArgs<DetailsFragmentArgs>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -71,13 +76,21 @@ class ProductsFragment : Fragment() {
                 }
         }
 
-/*        binding.errorImageView.setOnClickListener {
+        binding.errorImageView.setOnClickListener {
             if(productViewModel.networkState){
-                findNavController().navigate(R.id.action_productsFragment_to_detailsFragment)
+                //findNavController().navigate(R.id.action_productsFragment_to_detailsFragment)
+
+                /*val resultBundle = Bundle()
+               resultBundle.putParcelable("productBundle", args.productDto)*/
+
+                  val action = ProductsFragmentDirections.actionProductsFragmentToDetailsFragment(args.productDto)
+                 findNavController().navigate(action)
+
             }else{
                 productViewModel.networkStatus()
             }
-        }*/
+        }
+
 
 
         return binding.root

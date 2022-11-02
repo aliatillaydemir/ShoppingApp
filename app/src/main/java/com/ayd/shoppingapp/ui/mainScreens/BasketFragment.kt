@@ -1,29 +1,51 @@
 package com.ayd.shoppingapp.ui.mainScreens
 
-import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.ayd.shoppingapp.MainActivity
-import com.ayd.shoppingapp.R
+import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.ayd.shoppingapp.adapters.BasketProductAdapter
+import com.ayd.shoppingapp.databinding.FragmentBasketBinding
+import com.ayd.shoppingapp.viewmodel.MainViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class BasketFragment : Fragment() {
 
+    private val mAdapter: BasketProductAdapter by lazy { BasketProductAdapter() }
+    private val mainViewModel: MainViewModel by viewModels()
+
+    private var _binding: FragmentBasketBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_basket, container, false)
+        _binding = FragmentBasketBinding.inflate(inflater,container,false)
+        binding.lifecycleOwner = this
+
+        //adapter bindings
+        binding.mainViewModel = mainViewModel
+        binding.mAdapter = mAdapter
+
+
+        //setRecyclerView
+        binding.basketRecyclerView.adapter = mAdapter
+        binding.basketRecyclerView.layoutManager = LinearLayoutManager(requireContext())
+
+
+        return binding.root
     }
 
-/*    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        (activity as MainActivity).hideBottomNavigation()
-    }*/
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
+    }
+
 
 }

@@ -1,4 +1,4 @@
-package com.ayd.shoppingapp.data.database
+package com.ayd.shoppingapp.data.database.entities
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

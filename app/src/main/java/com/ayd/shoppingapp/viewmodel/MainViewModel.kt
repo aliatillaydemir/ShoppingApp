@@ -5,7 +5,8 @@ import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import androidx.lifecycle.*
-import com.ayd.shoppingapp.data.database.ProductEntity
+import com.ayd.shoppingapp.data.database.entities.BasketEntity
+import com.ayd.shoppingapp.data.database.entities.ProductEntity
 import com.ayd.shoppingapp.data.model.Products
 import com.ayd.shoppingapp.domain.repository.ProductRepository
 import com.ayd.shoppingapp.utils.NetworkResults
@@ -20,12 +21,31 @@ class MainViewModel @Inject constructor(private val repository: ProductRepositor
 ): AndroidViewModel(application) {
 
     //database
-    val readProduct: LiveData<List<ProductEntity>> = repository.local.readDatabase().asLiveData()
+    val readProduct: LiveData<List<ProductEntity>> = repository.local.readProduct().asLiveData()
+    val readBasket: LiveData<List<BasketEntity>> = repository.local.readBasket().asLiveData()
 
     private fun insertProduct(productEntity: ProductEntity) =
         viewModelScope.launch(Dispatchers.IO) {
             repository.local.insertProduct(productEntity)
         }
+
+    fun insertBasket(basketEntity: BasketEntity) =
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.local.insertBasket(basketEntity)
+        }
+
+    fun deleteProduct(basketEntity: BasketEntity) =
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.local.deleteProduct(basketEntity)
+        }
+
+    fun clearBasket() =
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.local.clearBasket()
+        }
+
+
+
 
     //retrofit
     var productResponse: MutableLiveData<NetworkResults<Products>> = MutableLiveData()

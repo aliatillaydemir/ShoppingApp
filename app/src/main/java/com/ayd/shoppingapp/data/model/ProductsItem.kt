@@ -1,8 +1,12 @@
 package com.ayd.shoppingapp.data.model
 
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
+import kotlinx.android.parcel.RawValue
 
+@Parcelize
 data class ProductsItem(
     @SerializedName("category")
     val category: String?,
@@ -15,7 +19,7 @@ data class ProductsItem(
     @SerializedName("price")
     val price: Double?,
     @SerializedName("rating")
-    val rating: Rating?,
+    val rating: @RawValue Rating?,
     @SerializedName("title")
     val title: String?
-)
+): Parcelable

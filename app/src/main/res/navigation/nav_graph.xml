@@ -89,7 +89,11 @@
         <fragment
             android:id="@+id/detailsFragment"
             android:name="com.ayd.shoppingapp.ui.mainScreens.DetailsFragment"
-            android:label="fragment_basket"
-            tools:layout="@layout/fragment_details" />
+            android:label="fragment_detail"
+            tools:layout="@layout/fragment_details" >
+            <argument
+                android:name="productDto"
+                app:argType="com.ayd.shoppingapp.data.model.ProductsItem" />
+        </fragment>
     </navigation>
 </navigation>

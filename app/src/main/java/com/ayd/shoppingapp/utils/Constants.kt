@@ -14,6 +14,8 @@ class Constants {
         const val DATABASE_NAME = "product_database"
         const val PRODUCT_TABLE = "product_table"
 
+        const val BASKET_TABLE = "basket_table"
+
     }
 
 }

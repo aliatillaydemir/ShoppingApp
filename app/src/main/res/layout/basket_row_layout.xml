@@ -1,17 +1,15 @@
-<?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
         <variable
-            name="result"
-            type="com.ayd.shoppingapp.data.model.ProductsItem" />
+            name="basketEntity"
+            type="com.ayd.shoppingapp.data.database.entities.BasketEntity" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/productsRowLayout"
-        productClickListener = "@{result}"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
@@ -19,7 +17,7 @@
 
 
         <com.google.android.material.card.MaterialCardView
-            android:id="@+id/products_row_cardView"
+            android:id="@+id/basket_row_cardView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -35,10 +33,10 @@
                 android:layout_height="match_parent">
 
                 <ImageView
-                    android:id="@+id/products_imageView"
+                    android:id="@+id/basket_imageView"
+                    loadImageUrl="@{basketEntity.productsItem.image}"
                     android:layout_width="200dp"
                     android:layout_height="150dp"
-                    loadImageUrl="@{result.image}"
                     android:scaleType="centerCrop"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -46,7 +44,7 @@
                     tools:srcCompat="@tools:sample/avatars" />
 
                 <TextView
-                    android:id="@+id/title_textView"
+                    android:id="@+id/basket_title_textView"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="12dp"
@@ -54,26 +52,26 @@
                     android:layout_marginEnd="12dp"
                     android:ellipsize="end"
                     android:maxLines="2"
-                    android:text="@{result.title}"
+                    android:text="@{basketEntity.productsItem.title}"
                     android:textColor="#070707"
                     android:textSize="20sp"
                     android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.1"
-                    app:layout_constraintStart_toEndOf="@+id/products_imageView"
+                    app:layout_constraintStart_toEndOf="@+id/basket_imageView"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/price_textView"
+                    android:id="@+id/basket_price_textView"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
+                    setPrice="@{basketEntity.productsItem.price}"
                     android:ellipsize="end"
                     android:maxLines="3"
-                    setPrice="@{result.price}"
-                    app:layout_constraintEnd_toEndOf="@+id/title_textView"
-                    app:layout_constraintStart_toStartOf="@+id/title_textView"
-                    app:layout_constraintTop_toBottomOf="@+id/title_textView" />
+                    app:layout_constraintEnd_toEndOf="@+id/basket_title_textView"
+                    app:layout_constraintStart_toStartOf="@+id/basket_title_textView"
+                    app:layout_constraintTop_toBottomOf="@+id/basket_title_textView" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
