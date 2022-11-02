@@ -44,6 +44,12 @@ width=30% height=70%>
 
 
 	~~data~~
-- parcelable - detail
+	
+~~parcelable - detail~~
+
 - firebase
 -local/cache (roomdb)
+- ui
+- test
+- search
+- code cleaning
