@@ -3,14 +3,17 @@
 
     <item
         android:id="@+id/productsFragment"
+        android:icon="@drawable/ic_baseline_shopping_basket_24"
         android:title="product" />
 
     <item
         android:id="@+id/searchFragment"
+        android:icon="@drawable/ic_baseline_search_24"
         android:title="search" />
 
     <item
         android:id="@+id/profileFragment"
+        android:icon="@drawable/ic_baseline_person_24"
         android:title="profile" />
 
 </menu>
