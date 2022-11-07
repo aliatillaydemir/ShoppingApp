@@ -13,4 +13,20 @@ class RemoteDataSource @Inject constructor(
         return productService.getProducts(queries)
     }
 
+    suspend fun getElectronics(queries: Map<String,String>): Response<Products>{
+        return productService.getElectronics(queries)
+    }
+
+    suspend fun getJewelery(queries: Map<String,String>): Response<Products>{
+        return productService.getJewelery(queries)
+    }
+
+    suspend fun getMenClothing(queries: Map<String,String>): Response<Products>{
+        return productService.getMenClothing(queries)
+    }
+
+    suspend fun getWomenClothing(queries: Map<String,String>): Response<Products>{
+        return productService.getWomenClothing(queries)
+    }
+
 }

@@ -2,12 +2,19 @@ package com.ayd.shoppingapp
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
+import androidx.core.view.MenuHost
+import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Lifecycle
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI.setupWithNavController
 import androidx.navigation.ui.setupActionBarWithNavController
@@ -35,8 +42,6 @@ class MainActivity : AppCompatActivity() {
 
         supportFragmentManager.findFragmentById(R.id.fragmentContainerView) as NavHostFragment //navigation bağlantısı için.
 
-
-
         navController = findNavController(R.id.fragmentContainerView)
         val appBarConfig: AppBarConfiguration = AppBarConfiguration(setOf(
             R.id.productsFragment,
@@ -46,6 +51,20 @@ class MainActivity : AppCompatActivity() {
 
         binding.bottomNav.setupWithNavController(navController)
         setupActionBarWithNavController(navController,appBarConfig)
+
+
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+
+            when(destination.id){
+                R.id.splashFragment -> supportActionBar?.hide()
+                R.id.viewPagerFragment -> supportActionBar?.hide()
+                R.id.searchFragment -> supportActionBar?.show()
+/*                R.id.basketFragment -> hideBottomNavigation()
+                R.id.productsFragment -> showBottomNavigation()
+                R.id.detailsFragment -> hideBottomNavigation()*/
+            }
+
+        }
 
 
 

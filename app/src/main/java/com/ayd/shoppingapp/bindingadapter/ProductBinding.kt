@@ -11,12 +11,14 @@ import com.ayd.shoppingapp.data.database.entities.ProductEntity
 import com.ayd.shoppingapp.data.model.Products
 import com.ayd.shoppingapp.data.model.ProductsItem
 import com.ayd.shoppingapp.ui.mainScreens.ProductsFragmentDirections
+import com.ayd.shoppingapp.ui.mainScreens.SearchFragmentDirections
 import com.ayd.shoppingapp.utils.NetworkResults
 
 class ProductBinding {
 
     companion object{
 
+        //for main page(production)...
         @BindingAdapter("productClickListener")
         @JvmStatic
         fun productClickListener(productsRowLayout: ConstraintLayout, product: ProductsItem){
@@ -26,6 +28,20 @@ class ProductBinding {
                     productsRowLayout.findNavController().navigate(action)
                 }catch (e: Exception){
                     Log.d("productClickListener", e.toString())
+                }
+            }
+        }
+
+        //for search page...
+        @BindingAdapter("productSearchClickListener")
+        @JvmStatic
+        fun productSearchClickListener(productsRowLayout: ConstraintLayout, product: ProductsItem){
+            productsRowLayout.setOnClickListener {
+                try {
+                    val action = SearchFragmentDirections.actionSearchFragmentToDetailsFragment(product)
+                    productsRowLayout.findNavController().navigate(action)
+                }catch (e: Exception){
+                    Log.d("productSearchClickListener", e.toString())
                 }
             }
         }

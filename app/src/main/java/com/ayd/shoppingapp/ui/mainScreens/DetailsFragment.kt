@@ -36,8 +36,6 @@ class DetailsFragment : Fragment() {
         // Inflate the layout for this fragment
         _binding = FragmentDetailsBinding.inflate(inflater, container, false)
 
-        //args = arguments
-        //val myBundle: ProductsItem? = args?.getParcelable("productBundle")
 
         binding.imageView.load(args.productDto.image)
         binding.titleTextView.text = args.productDto.title

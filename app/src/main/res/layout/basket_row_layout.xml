@@ -63,15 +63,25 @@
 
                 <TextView
                     android:id="@+id/basket_price_textView"
+                    setPrice="@{basketEntity.productsItem.price}"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
-                    setPrice="@{basketEntity.productsItem.price}"
                     android:ellipsize="end"
                     android:maxLines="3"
                     app:layout_constraintEnd_toEndOf="@+id/basket_title_textView"
                     app:layout_constraintStart_toStartOf="@+id/basket_title_textView"
                     app:layout_constraintTop_toBottomOf="@+id/basket_title_textView" />
+
+                <ImageView
+                    android:id="@+id/remove"
+                    android:layout_width="42dp"
+                    android:layout_height="32dp"
+                    android:layout_marginBottom="12dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="@+id/basket_price_textView"
+                    app:layout_constraintStart_toStartOf="@+id/basket_price_textView"
+                    app:srcCompat="@drawable/ic_baseline_remove_shopping_cart_24" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

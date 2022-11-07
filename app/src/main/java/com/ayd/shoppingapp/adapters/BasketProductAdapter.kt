@@ -2,13 +2,15 @@ package com.ayd.shoppingapp.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.ayd.shoppingapp.data.database.entities.BasketEntity
 import com.ayd.shoppingapp.databinding.BasketRowLayoutBinding
 import com.ayd.shoppingapp.utils.ProductDiffUtil
+import com.ayd.shoppingapp.viewmodel.MainViewModel
 
-class BasketProductAdapter: RecyclerView.Adapter<BasketProductAdapter.BasketViewHolder>() {
+class BasketProductAdapter(): RecyclerView.Adapter<BasketProductAdapter.BasketViewHolder>() {
 
     private var basketProduct = emptyList<BasketEntity>()
 
@@ -26,9 +28,10 @@ class BasketProductAdapter: RecyclerView.Adapter<BasketProductAdapter.BasketView
                 val binding = BasketRowLayoutBinding.inflate(layoutInf,parent,false)
                 return BasketViewHolder(binding)
             }
-        }
 
-    }
+            }
+
+        }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BasketViewHolder {
         return BasketViewHolder.from(parent)

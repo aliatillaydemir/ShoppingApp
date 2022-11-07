@@ -13,6 +13,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ayd.shoppingapp.MainActivity
 import com.ayd.shoppingapp.viewmodel.MainViewModel
@@ -99,8 +100,8 @@ class ProductsFragment : Fragment() {
 
     private fun setupRecyclerView(){
         binding.recyclerview.adapter = mAdapter
-        binding.recyclerview.layoutManager = LinearLayoutManager(requireContext())
-        //binding.recyclerview.layoutManager = GridLayoutManager(requireContext(),2)
+        //binding.recyclerview.layoutManager = LinearLayoutManager(requireContext())
+        binding.recyclerview.layoutManager = GridLayoutManager(requireContext(),2)
     }
 
 
@@ -180,14 +181,19 @@ class ProductsFragment : Fragment() {
     }
 
 
-    override fun onDestroy() {
-        super.onDestroy()
-        _binding = null
-    }
+
+
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
         (activity as MainActivity).showBottomNavigation()
     }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
+    }
+
+
 
 }

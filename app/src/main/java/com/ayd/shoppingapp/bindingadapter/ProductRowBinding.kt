@@ -22,7 +22,7 @@ class ProductRowBinding {
         @BindingAdapter("setPrice")
         @JvmStatic
         fun setPrice(textView: TextView, price: Double){
-            textView.text =  price.toString()
+            textView.text = "$price$"
         }
 
     }

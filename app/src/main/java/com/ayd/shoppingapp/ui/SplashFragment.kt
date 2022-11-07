@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.ayd.shoppingapp.MainActivity
 import com.ayd.shoppingapp.R
+import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.*
 import kotlin.coroutines.CoroutineContext
 
@@ -19,7 +20,7 @@ class SplashFragment : Fragment(), CoroutineScope {
         get() = Dispatchers.Main + Job()               //job açıyorum main'in üzerinde. splash screenim için.
 
 
-    override fun onCreateView(
+        override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {

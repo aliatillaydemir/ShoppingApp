@@ -3,6 +3,7 @@ package com.ayd.shoppingapp.data.database.entities
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.ayd.shoppingapp.data.model.Products
+import com.ayd.shoppingapp.data.model.ProductsItem
 import com.ayd.shoppingapp.utils.Constants.Companion.PRODUCT_TABLE
 
 @Entity(tableName = PRODUCT_TABLE)

@@ -8,12 +8,14 @@ import androidx.lifecycle.*
 import com.ayd.shoppingapp.data.database.entities.BasketEntity
 import com.ayd.shoppingapp.data.database.entities.ProductEntity
 import com.ayd.shoppingapp.data.model.Products
+import com.ayd.shoppingapp.data.model.ProductsItem
 import com.ayd.shoppingapp.domain.repository.ProductRepository
 import com.ayd.shoppingapp.utils.NetworkResults
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import retrofit2.Response
+import java.util.SimpleTimeZone
 import javax.inject.Inject
 
 @HiltViewModel
@@ -44,6 +46,11 @@ class MainViewModel @Inject constructor(private val repository: ProductRepositor
             repository.local.clearBasket()
         }
 
+    //query
+    fun searchDb(searchQuery: String): LiveData<List<ProductEntity>>{
+        return repository.local.searchDb(searchQuery).asLiveData()
+    }
+
 
 
 
@@ -52,6 +59,22 @@ class MainViewModel @Inject constructor(private val repository: ProductRepositor
 
     fun getProducts(queries: Map<String,String>) = viewModelScope.launch {
         getProductsSafeCall(queries)
+    }
+
+    fun getProductsElectronic(queries: Map<String,String>) = viewModelScope.launch {
+        getProductsElectronicSafeCall(queries)
+    }
+
+    fun getProductsJewelery(queries: Map<String,String>) = viewModelScope.launch {
+        getProductsJewelerySafeCall(queries)
+    }
+
+    fun getProductsMen(queries: Map<String,String>) = viewModelScope.launch {
+        getProductsMenSafeCall(queries)
+    }
+
+    fun getProductsWomen(queries: Map<String,String>) = viewModelScope.launch {
+        getProductsWomenSafeCall(queries)
     }
 
     private suspend fun getProductsSafeCall(queries: Map<String, String>) {
@@ -64,6 +87,87 @@ class MainViewModel @Inject constructor(private val repository: ProductRepositor
                 val product = productResponse.value!!.data
                 if(product != null){
                     offlineCacheProducts(product)
+                }
+
+            }catch (e: Exception){
+                productResponse.value = NetworkResults.Error("Products not found :(")
+            }
+        }else{
+            productResponse.value = NetworkResults.Error("No internet Connection")
+        }
+    }
+
+
+    private suspend fun getProductsElectronicSafeCall(queries: Map<String, String>) {
+        productResponse.value = NetworkResults.Loading()
+        if(connectionInternet()){
+            try {
+                val response = repository.remote.getElectronics(queries)
+                productResponse.value = handleProductResponse(response)
+
+                val product = productResponse.value!!.data
+                if(product != null){
+//                    offlineCacheProducts(product)
+                }
+
+            }catch (e: Exception){
+                productResponse.value = NetworkResults.Error("Products not found :(")
+            }
+        }else{
+            productResponse.value = NetworkResults.Error("No internet Connection")
+        }
+    }
+
+    private suspend fun getProductsJewelerySafeCall(queries: Map<String, String>) {
+        productResponse.value = NetworkResults.Loading()
+        if(connectionInternet()){
+            try {
+                val response = repository.remote.getJewelery(queries)
+                productResponse.value = handleProductResponse(response)
+
+                val product = productResponse.value!!.data
+                if(product != null){
+//                    offlineCacheProducts(product)
+                }
+
+            }catch (e: Exception){
+                productResponse.value = NetworkResults.Error("Products not found :(")
+            }
+        }else{
+            productResponse.value = NetworkResults.Error("No internet Connection")
+        }
+    }
+
+    private suspend fun getProductsMenSafeCall(queries: Map<String, String>) {
+        productResponse.value = NetworkResults.Loading()
+        if(connectionInternet()){
+            try {
+                val response = repository.remote.getMenClothing(queries)
+                productResponse.value = handleProductResponse(response)
+
+                val product = productResponse.value!!.data
+                if(product != null){
+//                    offlineCacheProducts(product)
+                }
+
+            }catch (e: Exception){
+                productResponse.value = NetworkResults.Error("Products not found :(")
+            }
+        }else{
+            productResponse.value = NetworkResults.Error("No internet Connection")
+        }
+    }
+
+    private suspend fun getProductsWomenSafeCall(queries: Map<String, String>) {
+        productResponse.value = NetworkResults.Loading()
+        if(connectionInternet()){
+            try {
+                val response = repository.remote.getWomenClothing(queries)
+                productResponse.value = handleProductResponse(response)
+
+                val product = productResponse.value!!.data
+                if(product != null){
+//                    offlineCacheProducts(product)
                 }
 
             }catch (e: Exception){

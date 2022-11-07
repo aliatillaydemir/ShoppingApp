@@ -3,6 +3,8 @@ package com.ayd.shoppingapp.data.database
 import androidx.room.*
 import com.ayd.shoppingapp.data.database.entities.BasketEntity
 import com.ayd.shoppingapp.data.database.entities.ProductEntity
+import com.ayd.shoppingapp.data.model.Products
+import com.ayd.shoppingapp.data.model.ProductsItem
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -14,6 +16,10 @@ interface ProductDao {
 
     @Query("SELECT * FROM product_table ORDER BY id ASC")
     fun readProduct(): Flow<List<ProductEntity>>
+
+    //search
+    @Query("SELECT * FROM product_table WHERE product LIKE :searchQuery")
+    fun searchDb(searchQuery: String): Flow<List<ProductEntity>>
 
 
     //basket page
